@@ -14,13 +14,28 @@ public class Game implements Runnable {
 	public static final int RUN = 1;
 	public static final int MENU = 2;
 
+	/*
+	 * Etat actuel du jeu.
+	 */
 	private int gameState = PAUSED;
+	/*
+	 * Permet de savoir si le jeu est en fonctionnement ou non. Il passe à true au
+	 * lancement du jeu et à false dès que la fonction stop est appelée.
+	 */
 	private boolean isRunning;
 
+	/*
+	 * Constructeur du jeu. Ne modifier que pour ajouter des choses à faire avant le
+	 * chargement du jeu.
+	 */
 	private Game() {
 		new Thread(this, "Main thread");
 	}
 
+	/*
+	 * Fonction d'initialisation du jeu. Elle est appelée automatiquement lorsque
+	 * l'on fait game.start(), où game est une variable de type Game.
+	 */
 	private void init() {
 		isRunning = true;
 	}
