@@ -1,7 +1,7 @@
 package fr.game_engine.map;
 
 import java.util.HashMap;
-import java.util.Vector;
+import fr.game_engine.utils.Polygon;
 
 /*
  * Classe qui contiendra les données d'un niveau du jeu
@@ -20,19 +20,27 @@ import java.util.Vector;
  * -> TODO: Polygon
  */
 public class Map {
-	HashMap<Integer[], Vector<Double>> map;
-	Vector<Double> playerPosition;
+	HashMap<Polygon, Double[]> map;
+	Double[] playerPosition;
 	
 	public Map() {
 		
 	}
 	
-	public HashMap<Integer[],Vector<Double>> getMap() {
-		return map;
+	public void addPolygon(Polygon p, Double[] position) {
+		this.map.put(p, position);
 	}
 	
-	public Vector<Double> getPlayerPosition() {
-		return playerPosition;
+	public void changePlayerPosition(Double[] newPosition) {
+		this.playerPosition = newPosition;
+	}
+	
+	public HashMap<Polygon, Double[]> getMap() {
+		return this.map;
+	}
+	
+	public Double[] getPlayerPosition() {
+		return this.playerPosition;
 	}
 }
 
