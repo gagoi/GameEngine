@@ -1,5 +1,6 @@
 package fr.game_engine.map;
 
+import java.awt.geom.Point2D;
 import java.util.HashMap;
 import fr.game_engine.utils.Polygon;
 
@@ -20,26 +21,26 @@ import fr.game_engine.utils.Polygon;
  * -> TODO: Polygon
  */
 public class Map {
-	HashMap<Polygon, Double[]> map;
-	Double[] playerPosition;
+	HashMap<Polygon, Point2D> map;
+	Point2D playerPosition;
 	
 	public Map() {
 		
 	}
 	
-	public void addPolygon(Polygon p, Double[] position) {
+	public void addPolygon(Polygon p, Point2D position) {
 		this.map.put(p, position);
 	}
 	
-	public void changePlayerPosition(Double[] newPosition) {
-		this.playerPosition = newPosition;
+	public void changePlayerPosition(Point2D newPosition) {
+		this.playerPosition.setLocation(newPosition);
 	}
 	
-	public HashMap<Polygon, Double[]> getMap() {
+	public HashMap<Polygon, Point2D> getMap() {
 		return this.map;
 	}
 	
-	public Double[] getPlayerPosition() {
+	public Point2D getPlayerPosition() {
 		return this.playerPosition;
 	}
 }
