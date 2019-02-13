@@ -1,5 +1,6 @@
 package fr.game_engine.utils;
 
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 /*
@@ -9,13 +10,13 @@ import java.util.ArrayList;
  * -> get(index)
  */
 public class Polygon {
-	ArrayList<Double[]> vertices;
+	ArrayList<Point2D> vertices;
 	
 	public int getVertexCount() {
 		return this.vertices.size();
 	}
 	
-	public Double[] getVertex(int index) {
+	public Point2D getVertex(int index) {
 		return this.vertices.get(index);
 	}
 }
