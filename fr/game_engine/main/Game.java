@@ -1,6 +1,14 @@
 package fr.game_engine.main;
 
+import java.awt.Dimension;
+
+import fr.game_engine.graphics.Window;
+
 public class Game implements Runnable {
+	
+	
+	private Dimension defaultDimension = new Dimension(1280, 720); // Taille par défaut de la fenêtre.
+	private int defaultLayer = 3; // Nombrde de plan par défaut du rendu.
 
 	/*
 	 * Ce sont les modes par défaut que le jeu peut avoir.
@@ -17,20 +25,39 @@ public class Game implements Runnable {
 	/*
 	 * Etat actuel du jeu.
 	 */
-	private int gameState = PAUSED;
+	private Integer gameState = PAUSED;
+	
 	/*
 	 * Permet de savoir si le jeu est en fonctionnement ou non. Il passe à true au
 	 * lancement du jeu et à false dès que la fonction stop est appelée.
 	 */
 	private boolean isRunning;
+	
+	/*
+	 * Fenêtre contenant le moteur de rendu du jeu.
+	 */
+	private Window display;
+	
+	/*
+	 * Constructeur du jeu. Ne modifier que pour ajouter des choses à faire avant le
+	 * chargement du jeu. Utilises les valeurs par défaut : 1280x720 et 3 Layers.
+	 */
+	public Game() {
+		new Thread(this, "Main thread").start();
+	}
 
 	/*
 	 * Constructeur du jeu. Ne modifier que pour ajouter des choses à faire avant le
 	 * chargement du jeu.
+	 * @param size : (width, height)
+	 * @param nbLayers : nombre de plans
 	 */
-	private Game() {
-		new Thread(this, "Main thread");
+	public Game(Dimension size, int nbLayers) {
+		this();
+		this.defaultDimension = size;
+		this.defaultLayer = nbLayers;
 	}
+	
 
 	/*
 	 * Fonction d'initialisation du jeu. Elle est appelée automatiquement lorsque
@@ -38,6 +65,9 @@ public class Game implements Runnable {
 	 */
 	private void init() {
 		isRunning = true;
+		display = new Window(defaultLayer, defaultDimension);
+		
+		display.setVisible(true);
 	}
 
 	@Override
