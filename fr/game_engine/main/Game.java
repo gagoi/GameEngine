@@ -45,6 +45,7 @@ public class Game implements Runnable {
 	 */
 	public Game() {
 		new Thread(this, "Main thread").start();
+		waitForReady();
 	}
 
 	/*
@@ -67,14 +68,14 @@ public class Game implements Runnable {
 	private void init() {
 		isRunning = true;
 		display = new Window(defaultLayer, defaultDimension);
-		
 		display.setVisible(true);
+		
 	}
 
 	@Override
 	public void run() {
 		init();
-
+		waitForReady();
 		while (isRunning) { // Tant qu'on n'a pas quitté le jeu.
 			switch (gameState) { // En fonction de l'état dans lequel est le jeu.
 			case PAUSED: // Si il est en pause.
@@ -99,6 +100,7 @@ public class Game implements Runnable {
 				gameState = ERROR;
 				break;
 			}
+			display.repaint();
 		}
 	}
 
@@ -137,5 +139,15 @@ public class Game implements Runnable {
 	 */
 	public void removeIRenderable(IRenderable iRenderable) {
 		display.removeIRenderable(iRenderable);
+	}
+
+
+	/*
+	 * Empeche le Thread principale de travailler tant que la fenêtre n'est pas prête.
+	 */
+	public void waitForReady() {
+		while(display == null) {
+			System.out.print("");
+		};
 	}
 }
