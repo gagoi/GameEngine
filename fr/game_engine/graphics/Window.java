@@ -14,13 +14,15 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Window extends JFrame {
 
-	private Dimension d; // Taille de la fenêtre.
+	private final Dimension d; // Taille de la fenêtre.
+	private final int nbLayers; // Nombre de plans.
 
 	private List<IRenderable> enabledEelements; // Liste des éléments dont on doit faire le rendu.
 
 	public Window(final int nbLayers, final Dimension d) {
 		getContentPane().add(new Renderer(nbLayers));
 		this.d = d;
+		this.nbLayers = nbLayers;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(d);
 		enabledEelements = new ArrayList<IRenderable>();
@@ -86,6 +88,11 @@ public class Window extends JFrame {
 			for (IRenderable iRenderable : enabledEelements) {
 				iRenderable.draw(img[iRenderable.getLayer()].getGraphics());
 			}
+			
+			g2d = (Graphics2D) img[0].getGraphics();
+			for (int i = img.length - 1; i > 0; i--) {
+				g2d.drawImage(img[i], 0, 0, null);
+			}
 
 		}
 	}
@@ -94,7 +101,7 @@ public class Window extends JFrame {
 	 * Ajoute un élément à la liste des éléments à dessiner (seulement si il n'est pas déjà dedans.
 	 */
 	public void addIRenderable(IRenderable iRenderable) {
-		if (!this.enabledEelements.contains(iRenderable))
+		if (null != iRenderable && !this.enabledEelements.contains(iRenderable) && iRenderable.getLayer() < nbLayers)
 			this.enabledEelements.add(iRenderable);
 	}
 	
