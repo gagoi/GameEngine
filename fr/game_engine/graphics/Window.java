@@ -15,9 +15,8 @@ import javax.swing.JPanel;
 public class Window extends JFrame {
 
 	private Dimension d; // Taille de la fenêtre.
-	
+
 	private List<IRenderable> enabledEelements; // Liste des éléments dont on doit faire le rendu.
-	
 
 	public Window(final int nbLayers, final Dimension d) {
 		getContentPane().add(new Renderer(nbLayers));
@@ -62,7 +61,8 @@ public class Window extends JFrame {
 		 */
 		public void render() {
 			Graphics2D g2d; // Permet de dessiner sur chaque image.
-			// Si l'image du fond n'existe pas, elle est crée sans transparence (celle sur laquelle tout sera
+			// Si l'image du fond n'existe pas, elle est crée sans transparence (celle sur
+			// laquelle tout sera
 			// dessiné).
 			if (img[0] == null)
 				img[0] = getGraphicsConfiguration().createCompatibleVolatileImage(d.width, d.height,
@@ -70,8 +70,9 @@ public class Window extends JFrame {
 			g2d = (Graphics2D) img[0].getGraphics(); // Permet de dessiner sur l'image n°0.
 			g2d.setBackground(Color.BLACK); // Couleur de fond noir
 			g2d.clearRect(0, 0, d.width, d.height); // Reset de l'image n°0 avec la couleur de fond.
-			
-			// Pour chaque image restante, si elle n'exite pas on la créé transparente. On reset l'affichage (en transparent), puis on fais le rendu.
+
+			// Pour chaque image restante, si elle n'exite pas on la créé transparente. On
+			// reset l'affichage (en transparent), puis on fais le rendu.
 			for (int i = 1; i < img.length; i++) {
 				if (img[i] == null)
 					img[i] = getGraphicsConfiguration().createCompatibleVolatileImage(d.width, d.height,
@@ -80,12 +81,27 @@ public class Window extends JFrame {
 				g2d.setBackground(new Color(0, 0, 0, 0)); // Couleur de fond transparente
 				g2d.clearRect(0, 0, d.width, d.height); // Reset de l'image n°i avec la couleur de fond.
 			}
-			
+
 			// Faire le rendu de chaque élément sur l'image qu'il demande.
 			for (IRenderable iRenderable : enabledEelements) {
 				iRenderable.draw(img[iRenderable.getLayer()].getGraphics());
 			}
-			
+
 		}
+	}
+	
+	/*
+	 * Ajoute un élément à la liste des éléments à dessiner (seulement si il n'est pas déjà dedans.
+	 */
+	public void addIRenderable(IRenderable iRenderable) {
+		if (!this.enabledEelements.contains(iRenderable))
+			this.enabledEelements.add(iRenderable);
+	}
+	
+	/*
+	 * Retire un élément de la liste des éléments à dessiner.
+	 */
+	public void removeIRenderable(IRenderable iRenderable) {
+		this.enabledEelements.remove(iRenderable);
 	}
 }

@@ -2,6 +2,7 @@ package fr.game_engine.main;
 
 import java.awt.Dimension;
 
+import fr.game_engine.graphics.IRenderable;
 import fr.game_engine.graphics.Window;
 
 public class Game implements Runnable {
@@ -122,5 +123,19 @@ public class Game implements Runnable {
 	 */
 	public void resume() {
 		gameState = PAUSED;
+	}
+	
+	/*
+	 * Wrapper pour l'ajout d'éléments à la liste des éléments à dessiner.
+	 */
+	public void addIRenderable(IRenderable iRenderable) {
+		display.addIRenderable(iRenderable);
+	}
+	
+	/*
+	 * Wrapper pour la suppression d'éléments de la liste des éléments à dessiner.
+	 */
+	public void removeIRenderable(IRenderable iRenderable) {
+		display.removeIRenderable(iRenderable);
 	}
 }
