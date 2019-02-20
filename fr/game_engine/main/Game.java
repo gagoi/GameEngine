@@ -40,6 +40,11 @@ public class Game implements Runnable {
 	private Window display;
 	
 	/*
+	 * Temps entre deux mises à jours.
+	 */
+	private int framesFrequency = 1000 / 60;
+	
+	/*
 	 * Constructeur du jeu. Ne modifier que pour ajouter des choses à faire avant le
 	 * chargement du jeu. Utilises les valeurs par défaut : 1280x720 et 3 Layers.
 	 */
@@ -53,11 +58,13 @@ public class Game implements Runnable {
 	 * chargement du jeu.
 	 * @param size : (width, height)
 	 * @param nbLayers : nombre de plans
+	 * @param fps : nombre d'images par seconde voulu
 	 */
-	public Game(Dimension size, int nbLayers) {
+	public Game(final Dimension size, final int nbLayers, final int fps) {
 		this();
 		this.defaultDimension = size;
 		this.defaultLayer = nbLayers;
+		this.framesFrequency = 1000 / fps;
 	}
 	
 
@@ -74,8 +81,9 @@ public class Game implements Runnable {
 
 	@Override
 	public void run() {
+		long lastUpdate = System.currentTimeMillis();
+		
 		init();
-		waitForReady();
 		while (isRunning) { // Tant qu'on n'a pas quitté le jeu.
 			switch (gameState) { // En fonction de l'état dans lequel est le jeu.
 			case PAUSED: // Si il est en pause.
@@ -87,6 +95,17 @@ public class Game implements Runnable {
 				break;
 			case RUN: // Le jeu fonctionne normalement.
 				// To-Do : Faire des trucs.
+				if (System.currentTimeMillis() - lastUpdate >= framesFrequency) {
+					//To-Do : Faire des updates
+					display.repaint();
+					lastUpdate = System.currentTimeMillis();
+				} else {
+					try {
+						Thread.sleep(System.currentTimeMillis() - lastUpdate  );
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 				break;
 			case MENU: // Le jeu est dans un menu.
 				// To-Do : Faire des trucs.
@@ -100,7 +119,6 @@ public class Game implements Runnable {
 				gameState = ERROR;
 				break;
 			}
-			display.repaint();
 		}
 	}
 
@@ -117,14 +135,14 @@ public class Game implements Runnable {
 	 * l'utiliser pour les menus.
 	 */
 	public void pause() {
-		gameState = RUN;
+		gameState = PAUSED;
 	}
 
 	/*
 	 * Fonction de reprise du jeu après une pause.
 	 */
 	public void resume() {
-		gameState = PAUSED;
+		gameState = RUN;
 	}
 	
 	/*
@@ -147,7 +165,7 @@ public class Game implements Runnable {
 	 */
 	public void waitForReady() {
 		while(display == null) {
-			System.out.print("");
+			System.out.print(""); // Don't touch it, it's working
 		};
 	}
 }
