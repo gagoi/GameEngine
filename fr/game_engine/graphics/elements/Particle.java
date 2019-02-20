@@ -10,9 +10,9 @@ import fr.game_engine.utils.RectD;
 
 public class Particle implements IRenderable, IMovable {
 
-	private final int layer; // Plan sur lequel est affiché la particule.
+	protected final int layer; // Plan sur lequel est affiché la particule.
 	private RectD box;
-	private final BufferedImage texture; // Texture de la particule.
+	protected final BufferedImage texture; // Texture de la particule.
 
 	/*
 	 * Créer une particule par défaut.

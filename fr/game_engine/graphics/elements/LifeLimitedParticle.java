@@ -6,8 +6,9 @@ import java.awt.image.BufferedImage;
 public class LifeLimitedParticle extends Particle {
 
 	public static final int IMMORTAL = -1;
-	
-	private final int lifeTime; // Durée de vie en nombre d'update (équivalent au nombre de déplacementà faire). (-1 pour immortelle).
+
+	private final int lifeTime; // Durée de vie en nombre d'update (équivalent au nombre de déplacementà faire).
+								// (-1 pour immortelle).
 	private int life = 0; // Temps de vie (équivalen au nombre de déplacements fait).
 
 	public LifeLimitedParticle(final int x, final int y, final int lifeTime) {
@@ -19,6 +20,10 @@ public class LifeLimitedParticle extends Particle {
 			final BufferedImage texture) {
 		super(x, y, layer, texture);
 		this.lifeTime = lifeTime;
+	}
+
+	public LifeLimitedParticle(final int x, final int y, final LifeLimitedParticle particle) {
+		this(x, y, particle.lifeTime, particle.layer, particle.texture);
 	}
 
 	@Override
