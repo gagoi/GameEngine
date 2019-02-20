@@ -5,12 +5,12 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import fr.game_engine.graphics.IRenderable;
+import fr.game_engine.utils.RectD;
 
-public class Particle implements IRenderable, IMovable {
+public class Particle implements IRenderable {
 
 	private final int layer; // Plan sur lequel est affiché la particule.
-	private final int width, height; // Taille de la particule.
-	private double x, y; // Position de la particule.
+	private RectD box;
 	private final BufferedImage texture; // Texture de la particule.
 
 	/*
@@ -22,10 +22,7 @@ public class Particle implements IRenderable, IMovable {
 	 */
 	public Particle(final int x, final int y) {
 		this.layer = 0;
-		this.width = 16;
-		this.height = 16;
-		this.x = x;
-		this.y = y;
+		this.box = new RectD(x, y, 16, 16);
 		this.texture = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB); // Image par défaut
 		Graphics g = this.texture.getGraphics();
 		g.setColor(new Color(255, 255, 0));
@@ -48,19 +45,16 @@ public class Particle implements IRenderable, IMovable {
 		if (texture == null)
 			throw new NullPointerException();
 		this.texture = texture;
-		this.width = texture.getWidth();
-		this.height = texture.getHeight();
-		this.x = x;
-		this.y = y;
+		this.box = new RectD(x, y, texture.getWidth(), texture.getHeight());
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		if (texture == null) { // Si l'image n'existe pas, on dessine un rectangle rose.
 			g.setColor(new Color(255, 0, 255));
-			g.fillRect((int) x, (int) y, width, height);
+			g.fillRect((int) box.getX(), (int) box.getY(), (int) box.getWidth(), (int) box.getWidth());
 		} else { // Sinon on dessine l'image aux bonnes coordonnées.
-			g.drawImage(texture, (int) x, (int) y, null);
+			g.drawImage(texture, (int) box.getX(), (int) box.getY(), null);
 		}
 	}
 
@@ -68,11 +62,4 @@ public class Particle implements IRenderable, IMovable {
 	public int getLayer() {
 		return this.layer;
 	}
-
-	@Override
-	public void moove(double dx, double dy) {
-		this.x += dx;
-		this.y += dy;
-	}
-
 }

@@ -3,9 +3,9 @@ package fr.game_engine.utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PolygonD {
+public class PolygonD implements IMovable {
 
-	private ArrayList<PointD> points;
+	protected ArrayList<PointD> points;
 
 	public PolygonD() {
 		points = new ArrayList<PointD>(3);
@@ -19,5 +19,12 @@ public class PolygonD {
 	public void addPoint(PointD p) {
 		if (null != p && !points.contains(p))
 			points.add(p);
+	}
+
+	@Override
+	public void move(double dx, double dy) {
+		for (PointD pointD : points) {
+			pointD.move(dx, dy);
+		}
 	}
 }
