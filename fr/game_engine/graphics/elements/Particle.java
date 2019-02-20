@@ -2,16 +2,15 @@ package fr.game_engine.graphics.elements;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import fr.game_engine.graphics.IRenderable;
 
-public class Particle implements IRenderable {
+public class Particle implements IRenderable, IMovable {
 
 	private final int layer; // Plan sur lequel est affiché la particule.
 	private final int width, height; // Taille de la particule.
-	private final int x, y; // Position de la particule.
+	private double x, y; // Position de la particule.
 	private final BufferedImage texture; // Texture de la particule.
 
 	/*
@@ -59,15 +58,21 @@ public class Particle implements IRenderable {
 	public void draw(Graphics g) {
 		if (texture == null) { // Si l'image n'existe pas, on dessine un rectangle rose.
 			g.setColor(new Color(255, 0, 255));
-			g.fillRect(x, y, width, height);
+			g.fillRect((int) x, (int) y, width, height);
 		} else { // Sinon on dessine l'image aux bonnes coordonnées.
-			g.drawImage(texture, x, y, null);
+			g.drawImage(texture, (int) x, (int) y, null);
 		}
 	}
 
 	@Override
 	public int getLayer() {
 		return this.layer;
+	}
+
+	@Override
+	public void moove(double dx, double dy) {
+		this.x += dx;
+		this.y += dy;
 	}
 
 }
