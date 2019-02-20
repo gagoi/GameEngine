@@ -5,9 +5,10 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import fr.game_engine.graphics.IRenderable;
+import fr.game_engine.utils.IMovable;
 import fr.game_engine.utils.RectD;
 
-public class Particle implements IRenderable {
+public class Particle implements IRenderable, IMovable {
 
 	private final int layer; // Plan sur lequel est affiché la particule.
 	private RectD box;
@@ -61,5 +62,10 @@ public class Particle implements IRenderable {
 	@Override
 	public int getLayer() {
 		return this.layer;
+	}
+
+	@Override
+	public void move(double dx, double dy) {
+		box.move(dx, dy);
 	}
 }
