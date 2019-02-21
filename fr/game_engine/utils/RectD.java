@@ -20,6 +20,14 @@ public class RectD extends PolygonD {
 		return this.points.get(0).getY();
 	}
 
+	public double getEndX() {
+		return getX() + getWidth();
+	}
+
+	public double getEndY() {
+		return getY() + getHeight();
+	}
+
 	public double getWidth() {
 		return this.points.get(1).getX() - this.points.get(0).getX();
 	}
@@ -27,4 +35,10 @@ public class RectD extends PolygonD {
 	public double getHeight() {
 		return this.points.get(2).getY() - this.points.get(0).getY();
 	}
+
+	@Override
+	public boolean contains(PointD p) {
+		return !(p.getX() < this.getX() || p.getX() > this.getEndX() || p.getY() < this.getY()
+				|| p.getY() > this.getY());
+	};
 }

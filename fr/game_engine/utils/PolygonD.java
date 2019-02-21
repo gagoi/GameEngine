@@ -21,8 +21,12 @@ public class PolygonD implements IMovable {
 			points.add(p);
 	}
 
+	public boolean contains(PointD p) {
+		return false; // TODO
+	}
+
 	@Override
-	public void move(double dx, double dy) {
+	final public void move(double dx, double dy) {
 		for (PointD pointD : points) {
 			pointD.move(dx, dy);
 		}
