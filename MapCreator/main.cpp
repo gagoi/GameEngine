@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 int main()
 {
@@ -19,23 +20,31 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			else if (event.type == sf::Event::MouseWheelScrolled)
+			{
+				if (event.mouseWheelScroll.delta < 0)
+					view.zoom(0.9);
+				else if (event.mouseWheelScroll.delta > 0)
+					view.zoom(1.1);
+
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			view.move(-0.1, 0);
+			view.move(0.1, 0);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			view.move(0.1, 0);
+			view.move(-0.1, 0);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			view.move(0, -0.1);
+			view.move(0, 0.1);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			view.move(0, 0.1);
+			view.move(0, -0.1);
 		}
 
 
