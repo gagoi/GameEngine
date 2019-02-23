@@ -15,7 +15,7 @@ public class ParticleGenerator implements IRenderable {
 	private ArrayList<LifeLimitedParticle> particles;
 	private final int nbParticlesPerGen;
 	private final int nbUpdateBetweenGen;
-	private final VectD speed;
+	private VectD speed;
 	private final LifeLimitedParticle source;
 
 	private int counter = 0;
@@ -32,6 +32,14 @@ public class ParticleGenerator implements IRenderable {
 
 		this.source = source;
 		this.particles = new ArrayList<LifeLimitedParticle>(nbParticlesPerGen);
+	}
+
+	public ParticleGenerator(final RectD startingBox, final int nbParticlesPerGen, final int nbUpdateBetweenGen,
+			final SelfManagedParticle source) {
+		this.source = source;
+		this.startingBox = startingBox;
+		this.nbParticlesPerGen = nbParticlesPerGen;
+		this.nbUpdateBetweenGen = nbUpdateBetweenGen;
 	}
 
 	@Override

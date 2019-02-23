@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import fr.game_engine.graphics.IRenderable;
 import fr.game_engine.graphics.elements.LifeLimitedParticle;
 import fr.game_engine.graphics.elements.ParticleGenerator;
+import fr.game_engine.graphics.elements.SelfManagedParticle;
 import fr.game_engine.main.Game;
 import fr.game_engine.utils.RectD;
 import fr.game_engine.utils.VectD;
@@ -19,7 +20,7 @@ public class Main {
 		System.out.println("Hello World");
 		Game g = new Game(new Dimension(1280, 720), 2, 240);
 
-		testParticuleGen(g);
+		testParticuleGenRand(g);
 		
 		g.resume();
 
@@ -71,5 +72,8 @@ public class Main {
 		ParticleGenerator gen = new ParticleGenerator(new VectD(1, 1), new RectD(200, 200, 100, 100), 10, 120,
 				new LifeLimitedParticle(50, 50, 30000000));
 		g.addIRenderable(gen);
+	}
+	
+	private static void testParticuleGenRand(Game g) {
 	}
 }
