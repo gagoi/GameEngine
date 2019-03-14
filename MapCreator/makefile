@@ -15,9 +15,9 @@
 #===========================================================
  
 #variables
-SRCDIR = ./sources/
+SRCDIR = ./src
 OBJDIR = ./bin/obj/
-EXEC    = ./bin/Graphe
+EXEC    = ./bin/MapCreator
 DEPFILE = $(OBJDIR)mk.depend
 INCDIR = 
 LIBDIR = 
