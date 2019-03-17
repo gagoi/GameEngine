@@ -13,8 +13,8 @@ public class Main {
 	// Test pour l'interface graphique
 	public static void main(String[] args) {
 		System.out.println("Hello World");
-		Game g = new Game(new Dimension(1280, 720), 2, 240);
-
+		Game g = new Game(args, new Dimension(1280, 720), 2, 240);
+		
 		IRenderable render = new IRenderable() {
 			int i = 0;
 
