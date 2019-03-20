@@ -1,60 +1,39 @@
 package fr.game_engine.tests;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
-import fr.game_engine.graphics.IRenderable;
 import fr.game_engine.main.Game;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.shape.Circle;
 
 public class Main {
 
 	// Test pour l'interface graphique
 	public static void main(String[] args) {
 		System.out.println("Hello World");
-		Game g = new Game(args, new Dimension(1280, 720), 2, 240);
-		
-		IRenderable render = new IRenderable() {
-			int i = 0;
+		new Game(args, 60, new Dimension(1280, 720)) {
 
 			@Override
-			public int getLayer() {
-				return 0;
-			}
-
-			@Override
-			public void draw(Graphics g) {
-				Graphics2D g2d = (Graphics2D) g;
-				g2d.setColor(Color.RED);
-				g2d.fillRect(i / 120, i / 120, 50, 50);
-				++i;
-			}
-		};
-
-		IRenderable render2 = new IRenderable() {
-			int i = 660;
-
-			@Override
-			public int getLayer() {
+			public void init() throws Exception {
 				// TODO Auto-generated method stub
-				return 1;
+				super.init();
 			}
-
+			
 			@Override
-			public void draw(Graphics g) {
-
-				Graphics2D g2d = (Graphics2D) g;
-				g2d.setColor(Color.GREEN);
-				g2d.fillRect(i/10, 20 + 20, 20, 20);
-				i++;
-
-			}
+			protected void update(long now, long old, long delay) {
+				
+				Group game = new Group();
+				Group menu = new Group();
+				Node n = new Circle();
+				game.getChildren().add(n);
+				((Group) getScene().getRoot()).getChildren().clear();
+				((Group) getScene().getRoot()).getChildren().add(menu);
+				
+				
+				
+				
+			}			
 		};
-
-		g.addIRenderable(render);
-		g.addIRenderable(render2);
-		g.resume();
-
 	}
 }
