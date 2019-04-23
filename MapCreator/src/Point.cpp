@@ -22,9 +22,10 @@ Point::~Point()
 {
 }
 
-void Point::update(sf::Window& window)
+void Point::update(sf::RenderWindow& window)
 {
-    if(pointIn(sf::Vector2f(sf::Mouse::getPosition(window))))
+    sf::Vector2f coord = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    if(pointIn(coord))
     {
         showOutline();
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && !m_dragAndDrop && !dragging)
@@ -40,7 +41,7 @@ void Point::update(sf::Window& window)
 
     if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_dragAndDrop)
     {
-        setPosition(sf::Vector2f(sf::Mouse::getPosition(window)));
+        setPosition(coord);
     }
     else if(!sf::Mouse::isButtonPressed(sf::Mouse::Left) && m_dragAndDrop)
     {

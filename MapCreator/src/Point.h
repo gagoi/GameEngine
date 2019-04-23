@@ -14,7 +14,7 @@ class Point : public sf::Drawable
 public:
     Point(sf::Vector2f pos);
     ~Point();
-    void update(sf::Window& window);
+    void update(sf::RenderWindow& window);
     void setPosition(sf::Vector2f newPos);
     void showOutline();
     void hideOutline();
